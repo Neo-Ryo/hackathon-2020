@@ -1,20 +1,18 @@
-import React from "react";
-import { Button, Container, Row, Col } from "reactstrap";
-import { Link } from "react-router-dom";
-import styles from "./MapPage.module.css";
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import ReactTooltip from "react-tooltip";
+
+// import "./styles.css";
+
+import MapChart from "./MapChart";
 
 function MapPage() {
+  const [content, setContent] = useState("");
   return (
-    <Container fluid className={styles.mapPage}>
-      <Row>
-        <Col>
-          <h1>MapPage</h1>
-          <Link to="/">
-            <Button>home</Button>
-          </Link>
-        </Col>
-      </Row>
-    </Container>
+    <div>
+      <MapChart setTooltipContent={setContent} />
+      <ReactTooltip>{content}</ReactTooltip>
+    </div>
   );
 }
 
