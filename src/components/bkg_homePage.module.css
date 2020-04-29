@@ -1,0 +1,5 @@
+.bkg_img {
+  background: center / cover
+    url(https://www.nycgo.com/images/venues/188/met-museum-tagger-yancey-iv-5194__x_large.jpg);
+  height: 100vh;
+}
