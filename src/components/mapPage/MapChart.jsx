@@ -1,25 +1,39 @@
 import React, { memo } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import {
   ZoomableGroup,
   ComposableMap,
   Geographies,
   Geography,
 } from "react-simple-maps";
+import MyModale from "./MyModale";
+import { Redirect } from "react-router-dom";
 
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-const rounded = (num) => {
-  if (num > 1000000000) {
-    return Math.round(num / 100000000) / 10 + "Bn";
-  } else if (num > 1000000) {
-    return Math.round(num / 100000) / 10 + "M";
-  } else {
-    return Math.round(num / 100) / 10 + "K";
-  }
-};
+// getArtistesByCountry(){
+//     axios
+//         .get(`https://collectionapi.metmuseum.org/public/collection/v1/search?artistCountry=${NAME}&q=${NAME}`)
+//         .then((res) => {
+//             setArtist: res.data
+//         })
+// }
 
 const MapChart = ({ setTooltipContent }) => {
+  const [artist, setArtist] = useState();
+  const [country, setCountry] = useState();
+  useEffect(() => {
+    axios
+      .get(
+        `https://collectionapi.metmuseum.org/public/collection/v1/search?artistCountry=${NAME}&q=${NAME}?offset=30&limit=30`
+      )
+      .then((res) => {
+        setCountry(res.data);
+      });
+  });
+
   return (
     <>
       <ComposableMap data-tip="" projectionConfig={{ scale: 200 }}>
@@ -31,8 +45,8 @@ const MapChart = ({ setTooltipContent }) => {
                   key={geo.rsmKey}
                   geography={geo}
                   onMouseEnter={() => {
-                    const { NAME, POP_EST } = geo.properties;
-                    setTooltipContent(`${NAME} — ${rounded(POP_EST)}`);
+                    const { NAME } = geo.properties;
+                    setTooltipContent(`${NAME}`);
                   }}
                   onMouseLeave={() => {
                     setTooltipContent("");

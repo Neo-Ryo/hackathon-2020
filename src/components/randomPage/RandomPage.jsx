@@ -50,7 +50,11 @@ class RandomPage extends React.Component {
                 top
                 width="100%"
                 style={{ width: "100%" }}
-                src={this.state.item.primaryImageSmall}
+                src={
+                  this.state.item.primaryImageSmall
+                    ? this.state.item.primaryImageSmall
+                    : "https://www.k11artfoundation.org/wp-content/uploads/Met_logo-1.png"
+                }
                 alt={this.state.item.title}
               />
               <CardBody>
