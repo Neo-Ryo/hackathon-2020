@@ -9,12 +9,12 @@ class MyModale extends React.Component {
       modal: true,
       artistsList: [],
       arrayTest: [
-        {
-          name: "Charly",
-        },
-        {
-          name: "Marco",
-        },
+        // {
+        //   name: "Charly",
+        // },
+        // {
+        //   name: "Marco",
+        // },
       ],
     };
   }
@@ -43,9 +43,10 @@ class MyModale extends React.Component {
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalHeader toggle={toggle}>{name}</ModalHeader>
           <ModalBody>
-            {this.state.arrayTest.map((pers) => (
-              <p>{pers.name}</p>
-            ))}
+            {artistsId}
+            {/* {this.state.arrayTest.map((pers) => (
+              <p>{pers.name}</p> 
+            ))}*/}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={toggle}>

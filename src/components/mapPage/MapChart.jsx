@@ -6,7 +6,7 @@ import {
   Geography,
 } from "react-simple-maps";
 import MyModale from "./MyModale";
-import Axios from "axios";
+import axios from "axios";
 
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
@@ -17,6 +17,7 @@ class MapChart extends React.Component {
     this.state = {
       clickIsOn: false,
       name: "",
+      objectIDs:"",
       artistsId: [],
       artistsList: [],
       isLoading: true,
@@ -27,7 +28,7 @@ class MapChart extends React.Component {
   }
 
   getArtistsId() {
-    Axios.get(
+    axios.get(
       `https://collectionapi.metmuseum.org/public/collection/v1/search?artistNationality=${this.state.name}q=${this.state.name}?offset=1&limit=50`
     ).then(
       (res) => (

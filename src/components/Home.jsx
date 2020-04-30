@@ -27,6 +27,13 @@ function Home() {
           </Link>
         </Col>
       </Row>
+      <Row className="mt-3">
+        <Col>
+          <Link to="/test">
+            <Button className={styles.buttonHome}>Test Quizz</Button>
+          </Link>
+        </Col>
+      </Row>
     </Container>
   );
 }
