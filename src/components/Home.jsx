@@ -8,14 +8,14 @@ function Home() {
     <Container className={`home ${styles.bkg_img}`} fluid>
       <Row className="mb-5">
         <Col>
-          <h1>DÉCOUVERTE</h1>
+          <h1>Discover</h1>
         </Col>
       </Row>
 
       <Row>
         <Col>
           <Link to="/map">
-            <Button>WorldMap</Button>
+            <Button className={styles.buttonHome} >WorldMap</Button>
           </Link>
         </Col>
       </Row>
@@ -23,7 +23,7 @@ function Home() {
       <Row className="mt-3">
         <Col>
           <Link to="/random">
-            <Button>Random Artists</Button>
+            <Button className={styles.buttonHome}>Random Artists</Button>
           </Link>
         </Col>
       </Row>

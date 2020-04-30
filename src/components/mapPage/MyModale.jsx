@@ -1,40 +1,64 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import Axios from "axios";
 
-const MyModale = (props) => {
-  const { buttonLabel, className } = props;
+class MyModale extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: true,
+      artistsList: [],
+      arrayTest: [
+        {
+          name: "Charly",
+        },
+        {
+          name: "Marco",
+        },
+      ],
+    };
+  }
 
-  const [modal, setModal] = useState(false);
+  getArtistsList() {
+    const { artistsId } = this.props;
 
-  const toggle = () => setModal(!modal);
+    Axios.get(
+      `https://collectionapi.metmuseum.org/public/collection/v1/objects/${artistsId}`
+    ).then((res) => this.setState({ artistsList: res.data }));
+  }
 
-  return (
-    <div>
-      <Button color="danger" onClick={toggle}>
-        {buttonLabel}
-      </Button>
-      <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
-        <ModalBody>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>
-            Do Something
-          </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
-            Cancel
-          </Button>
-        </ModalFooter>
-      </Modal>
-    </div>
-  );
-};
+  render() {
+    const { buttonLabel, className, name, artistsList, artistsId } = this.props;
+    const { modal } = this.state;
+
+    const toggle = () => {
+      this.setState({ modal: !modal });
+    };
+
+    return (
+      <div>
+        <Button color="danger" onClick={toggle}>
+          {buttonLabel}
+        </Button>
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalHeader toggle={toggle}>{name}</ModalHeader>
+          <ModalBody>
+            {this.state.arrayTest.map((pers) => (
+              <p>{pers.name}</p>
+            ))}
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={toggle}>
+              Do Something
+            </Button>{" "}
+            <Button color="secondary" onClick={toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </div>
+    );
+  }
+}
 
 export default MyModale;
