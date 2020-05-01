@@ -15,18 +15,24 @@ class MapChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clickIsOn: false,
+      isModalOpen: false,
       name: "",
+<<<<<<< Updated upstream
+=======
+      objectIDs: "",
+>>>>>>> Stashed changes
       artistsId: [],
       artistsList: [],
       isLoading: true,
       redirectPage: false,
     };
     this.getArtistsId = this.getArtistsId.bind(this);
+    this.setModalOpen = this.setModalOpen.bind(this);
     // this.getArtistsList = this.getArtistsList.bind(this);
   }
 
   getArtistsId() {
+<<<<<<< Updated upstream
     Axios.get(
       `https://collectionapi.metmuseum.org/public/collection/v1/search?artistNationality=${this.state.name}q=${this.state.name}?offset=1&limit=50`
     ).then(
@@ -34,8 +40,17 @@ class MapChart extends React.Component {
         this.setState({ artistsId: res.data, isLoading: false }),
         console.log(res.data, "IDs"),
         console.log(this.state.name, "Ids")
+=======
+    axios
+      .get(
+        `https://collectionapi.metmuseum.org/public/collection/v1/search?artistNationality=${this.state.name}q=${this.state.name}?offset=1&limit=50`
+>>>>>>> Stashed changes
       )
-    );
+      .then((res) => {
+        this.setState({ artistsId: res.data.objectIDs, isLoading: false });
+        console.log(res.data, "IDs");
+        console.log(this.state.name, "Ids");
+      });
   }
 
   // getArtistsList(){
@@ -46,6 +61,12 @@ class MapChart extends React.Component {
   //       .then(res => (this.setState({artistsList: res.data}), console.log(res.data), console.log(artist)))
   //   });
   // }
+
+  setModalOpen() {
+    this.setState({
+      isModalOpen: !this.state.isModalOpen,
+    });
+  }
 
   render() {
     const { setTooltipContent } = this.props;
@@ -58,16 +79,14 @@ class MapChart extends React.Component {
       <>
         <ComposableMap data-tip="" projectionConfig={{ scale: 200 }}>
           <ZoomableGroup>
-            {this.state.clickIsOn ? (
-              <MyModale
-                name={this.state.name}
-                clickIsOn={this.state.clickIsOn}
-                artistsList={this.state.artists}
-                artistsId={this.state.artistsId.objectIDs}
-              />
-            ) : (
-              ""
-            )}
+            <MyModale
+              name={this.state.name}
+              isOpen={this.state.isModalOpen}
+              setModalOpen={this.setModalOpen}
+              artistsList={this.state.artists}
+              artistsId={this.state.artistsId}
+            />
+
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => (
@@ -87,7 +106,7 @@ class MapChart extends React.Component {
                       const { NAME } = geo.properties;
 
                       this.setState({
-                        clickIsOn: !this.state.clickIsOn,
+                        isModalOpen: !this.state.isModalOpen,
                         name: NAME,
                         redirectPage: true,
                       });
